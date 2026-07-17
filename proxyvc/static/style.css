@@ -1,0 +1,137 @@
+/* Custom styles for YouTube MP4 converter */
+
+body {
+    background: var(--bs-dark);
+    min-height: 100vh;
+}
+
+.container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    .display-6 {
+        font-size: 1.5rem;
+    }
+    
+    .lead {
+        font-size: 1rem;
+    }
+    
+    .btn-lg {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+    }
+}
+
+/* Enhanced card styling */
+.card {
+    border: 1px solid var(--bs-border-color);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Progress bar enhancements */
+.progress {
+    background-color: var(--bs-gray-800);
+    border-radius: 0.5rem;
+}
+
+.progress-bar {
+    background: linear-gradient(45deg, var(--bs-primary), var(--bs-info));
+    border-radius: 0.5rem;
+}
+
+/* Input styling */
+.form-control:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.2rem rgba(var(--bs-primary-rgb), 0.25);
+}
+
+/* Button hover effects */
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+/* Loading animation */
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.loading {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Status badge styling */
+.badge {
+    font-size: 0.75rem;
+    padding: 0.5rem 0.75rem;
+}
+
+/* Video info styling */
+#videoInfo {
+    border-bottom: 1px solid var(--bs-border-color);
+    padding-bottom: 1rem;
+}
+
+/* Download stats styling */
+#downloadStats .border-end {
+    border-color: var(--bs-border-color) !important;
+}
+
+/* Alert styling */
+.alert {
+    border: none;
+    border-radius: 0.5rem;
+}
+
+/* Responsive text */
+@media (max-width: 576px) {
+    .small {
+        font-size: 0.8rem;
+    }
+    
+    .card-text {
+        font-size: 0.85rem;
+    }
+    
+    .form-text {
+        font-size: 0.8rem;
+    }
+}
+
+/* Icon spacing */
+.fas, .fab {
+    margin-right: 0.25rem;
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bs-gray-800);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--bs-gray-600);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--bs-gray-500);
+}

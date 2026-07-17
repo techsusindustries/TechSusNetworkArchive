@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Progress - YouTube to MP4</title>
+    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+                <div class="text-center py-4">
+                    <a href="{{ url_for('index') }}" class="btn btn-outline-secondary mb-3">
+                        <i class="fas fa-arrow-left me-2"></i>
+                        Back to Home
+                    </a>
+                    <h1 class="display-6 mb-3">Download Progress</h1>
+                </div>
+
+                <!-- Progress Card -->
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <!-- Video Info -->
+                        <div id="videoInfo" class="mb-4" style="display: none;">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h5 id="videoTitle" class="card-title"></h5>
+                                    <p class="text-muted mb-1">
+                                        <i class="fas fa-user me-1"></i>
+                                        <span id="videoUploader"></span>
+                                    </p>
+                                    <p class="text-muted mb-0">
+                                        <i class="fas fa-clock me-1"></i>
+                                        <span id="videoDuration"></span>
+                                    </p>
+                                </div>
+                                <div class="col-md-4 text-md-end">
+                                    <div class="mt-2">
+                                        <span class="badge bg-secondary" id="statusBadge">Preparing...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Progress Bar -->
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="text-muted">Progress</span>
+                                <span id="progressPercent" class="fw-bold">0%</span>
+                            </div>
+                            <div class="progress" style="height: 8px;">
+                                <div 
+                                    id="progressBar" 
+                                    class="progress-bar progress-bar-striped progress-bar-animated" 
+                                    role="progressbar" 
+                                    style="width: 0%"
+                                ></div>
+                            </div>
+                        </div>
+
+                        <!-- Download Stats -->
+                        <div class="row text-center" id="downloadStats" style="display: none;">
+                            <div class="col-6">
+                                <div class="border-end">
+                                    <i class="fas fa-tachometer-alt text-info"></i>
+                                    <div class="mt-1">
+                                        <small class="text-muted d-block">Speed</small>
+                                        <span id="downloadSpeed" class="fw-bold">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <i class="fas fa-clock text-warning"></i>
+                                <div class="mt-1">
+                                    <small class="text-muted d-block">ETA</small>
+                                    <span id="downloadEta" class="fw-bold">-</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Status Messages -->
+                        <div id="statusMessage" class="alert d-none mt-3"></div>
+
+                        <!-- Download Button -->
+                        <div id="downloadSection" class="text-center mt-4" style="display: none;">
+                            <div class="alert alert-success">
+                                <i class="fas fa-check-circle me-2"></i>
+                                Download completed successfully!
+                            </div>
+                            <a id="downloadLink" href="#" class="btn btn-success btn-lg">
+                                <i class="fas fa-download me-2"></i>
+                                Download MP4 File
+                            </a>
+                        </div>
+
+                        <!-- Error Section -->
+                        <div id="errorSection" class="text-center mt-4" style="display: none;">
+                            <div class="alert alert-danger">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                <strong>Error:</strong> <span id="errorMessage"></span>
+                            </div>
+                            <a href="{{ url_for('index') }}" class="btn btn-primary">
+                                <i class="fas fa-redo me-2"></i>
+                                Try Again
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tips -->
+                <div class="card mt-4 bg-dark border-secondary">
+                    <div class="card-header">
+                        <h6 class="mb-0">
+                            <i class="fas fa-lightbulb me-2"></i>
+                            Tips
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <ul class="mb-0 small">
+                            <li>Keep this page open during download</li>
+                            <li>Videos download in 720p quality for faster downloads</li>
+                            <li>Large videos may take several minutes</li>
+                            <li>Files are automatically removed after 35 minutes</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const videoId = '{{ video_id }}';
+        let pollInterval;
+
+        function formatDuration(seconds) {
+            if (!seconds) return 'Unknown';
+            const minutes = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${minutes}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function updateProgress() {
+            fetch(`/api/progress/${videoId}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Progress data:', data);
+                    
+                    if (data.status === 'not_found') {
+                        showError('Download session not found');
+                        return;
+                    }
+
+                    // Update video info if available
+                    if (data.title) {
+                        document.getElementById('videoTitle').textContent = data.title;
+                        document.getElementById('videoUploader').textContent = data.uploader || 'Unknown';
+                        document.getElementById('videoDuration').textContent = formatDuration(data.duration);
+                        document.getElementById('videoInfo').style.display = 'block';
+                    }
+
+                    // Update progress
+                    const percent = Math.round(data.percent || 0);
+                    document.getElementById('progressPercent').textContent = `${percent}%`;
+                    document.getElementById('progressBar').style.width = `${percent}%`;
+
+                    // Update status badge
+                    const statusBadge = document.getElementById('statusBadge');
+                    const downloadStats = document.getElementById('downloadStats');
+
+                    switch (data.status) {
+                        case 'starting':
+                            statusBadge.textContent = 'Preparing...';
+                            statusBadge.className = 'badge bg-secondary';
+                            break;
+                        case 'downloading':
+                            statusBadge.textContent = 'Downloading';
+                            statusBadge.className = 'badge bg-primary';
+                            downloadStats.style.display = 'block';
+                            document.getElementById('downloadSpeed').textContent = data.speed || '-';
+                            document.getElementById('downloadEta').textContent = data.eta || '-';
+                            break;
+                        case 'finished':
+                            statusBadge.textContent = 'Completed';
+                            statusBadge.className = 'badge bg-success';
+                            downloadStats.style.display = 'none';
+                            showDownloadLink(data.filename);
+                            clearInterval(pollInterval);
+                            break;
+                        case 'error':
+                            showError(data.message || 'Unknown error occurred');
+                            clearInterval(pollInterval);
+                            break;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching progress:', error);
+                    showError('Failed to fetch download progress');
+                });
+        }
+
+        function showDownloadLink(filename) {
+            const downloadSection = document.getElementById('downloadSection');
+            const downloadLink = document.getElementById('downloadLink');
+
+            if (filename) {
+                // Use video ID for simpler file serving
+                downloadLink.href = `/serve/${videoId}`;
+                downloadSection.style.display = 'block';
+
+                // Clean up progress entry after showing download link
+                fetch(`/api/cleanup-progress/${videoId}`, { method: 'POST' })
+                    .catch(console.error);
+            }
+        }
+
+        function showError(message) {
+            const errorSection = document.getElementById('errorSection');
+            const errorMessage = document.getElementById('errorMessage');
+
+            errorMessage.textContent = message;
+            errorSection.style.display = 'block';
+
+            // Clean up progress entry on error
+            fetch(`/api/cleanup-progress/${videoId}`, { method: 'POST' })
+                .catch(console.error);
+
+            clearInterval(pollInterval);
+        }
+
+        // Start polling for progress
+        updateProgress();
+        pollInterval = setInterval(updateProgress, 2000);
+
+        // Clean up interval when page is closed
+        window.addEventListener('beforeunload', function() {
+            clearInterval(pollInterval);
+        });
+    </script>
+</body>
+</html>
