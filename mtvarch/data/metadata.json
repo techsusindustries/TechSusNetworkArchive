@@ -1,0 +1,999 @@
+{
+  "config": {
+    "siteTitle": "Movie/TV Show Archive",
+    "categories": [
+      {
+        "id": "featured",
+        "title": "Featured",
+        "filterTag": "featured"
+      },
+      {
+        "id": "marvel",
+        "title": "Marvel",
+        "filterTag": "marvel"
+      },
+      {
+        "id": "starwars",
+        "title": "Star Wars",
+        "filterTag": "star wars"
+      },
+      {
+        "id": "action",
+        "title": "Action",
+        "filterTag": "action"
+      },
+      {
+        "id": "sci-fi",
+        "title": "Sci-Fi",
+        "filterTag": "sci-fi"
+      },
+      {
+        "id": "comedy",
+        "title": "Comedy",
+        "filterTag": "comedy"
+      },
+      {
+        "id": "superhero",
+        "title": "Superhero",
+        "filterTag": "superhero"
+      },
+      {
+        "id": "animation",
+        "title": "Animation",
+        "filterTag": "animation"
+      },
+      {
+        "id": "indie",
+        "title": "Indie",
+        "filterTag": "indie"
+      },
+      {
+        "id": "horror",
+        "title": "Horror",
+        "filterTag": "horror"
+      },
+      {
+        "id": "tvshows",
+        "title": "TV Shows",
+        "filterTag": "tvshow"
+      },
+      {
+        "id": "movies",
+        "title": "Movies",
+        "filterTag": "movie"
+      }
+    ]
+  },
+  "library": [
+    {
+      "id": "movie_avengers_ageofultron",
+      "type": "movie",
+      "title": "Avengers: Age of Ultron",
+      "description": "Tony Stark unwittingly creates an A.I monster bent on destroying mankind.",
+      "thumbnail": "/assets/movies/marvel/avengers/avengers-ageofultron-thumb.webp",
+      "videoUrl": "/assets/movies/marvel/avengers/avengers-ageofultron.mp4",
+      "duration": "2h 24m",
+      "year": 2015,
+      "tags": [
+        "movie",
+        "marvel",
+        "superhero",
+        "action",
+        "sci-fi"
+      ]
+    },
+    {
+      "id": "movie_avengers_endgame",
+      "type": "movie",
+      "title": "Avengers: Endgame",
+      "description": "The epic finale to the Infinity Saga, this dramatic showdown pits the Avengers against Thanos.",
+      "thumbnail": "/assets/movies/marvel/avengers/avengers-endgame-thumb.webp",
+      "videoUrl": "/assets/movies/marvel/avengers/avengers-endgame.mp4",
+      "duration": "3h 5m",
+      "year": 2019,
+      "tags": [
+        "movie",
+        "marvel",
+        "superhero",
+        "action",
+        "sci-fi"
+      ]
+    },
+    {
+      "id": "movie_avengers_infinitywar",
+      "type": "movie",
+      "title": "Avengers: Infinity War",
+      "description": "The Avengers must be willing to sacrifice all to defeat Thanos.",
+      "thumbnail": "/assets/movies/marvel/avengers/avengers-infinitywar-thumb.webp",
+      "videoUrl": "/assets/movies/marvel/avengers/avengers-infinitywar.mp4",
+      "duration": "2h 34m",
+      "year": 2018,
+      "tags": [
+        "movie",
+        "marvel",
+        "superhero",
+        "action",
+        "sci-fi"
+      ]
+    },
+    {
+      "id": "movie_avengers",
+      "type": "movie",
+      "title": "The Avengers",
+      "description": "Nick Fury recruits a team of heroes to battle an unexpected enemy.",
+      "thumbnail": "/assets/movies/marvel/avengers/avengers-thumb.webp",
+      "videoUrl": "/assets/movies/marvel/avengers/avengers.mp4",
+      "duration": "2h 26m",
+      "year": 2012,
+      "tags": [
+        "movie",
+        "marvel",
+        "superhero",
+        "action",
+        "sci-fi"
+      ]
+    },
+    {
+      "id": "movie_blackwidow",
+      "type": "movie",
+      "title": "Black Widow",
+      "description": "Natasha confronts her history as a spy and the broken relationships left in her wake.",
+      "thumbnail": "/assets/movies/marvel/blackwidow/blackwidow-thumb.webp",
+      "videoUrl": "/assets/movies/marvel/blackwidow/blackwidow.mp4",
+      "duration": "2h 16m",
+      "year": 2021,
+      "tags": [
+        "movie",
+        "marvel",
+        "superhero",
+        "action",
+        "spy"
+      ]
+    },
+    {
+      "id": "movie_deadpool",
+      "type": "movie",
+      "title": "Deadpool",
+      "description": "Witness the origin story of Wade Wilson, who adopts the alter ego Deadpool.",
+      "thumbnail": "/assets/movies/marvel/deadpool/deadpool-thumb.webp",
+      "videoUrl": "/assets/movies/marvel/deadpool/deadpool.mp4",
+      "duration": "1h 50m",
+      "year": 2016,
+      "tags": [
+        "movie",
+        "marvel",
+        "superhero",
+        "action",
+        "comedy"
+      ]
+    },
+    {
+      "id": "movie_deadpool2",
+      "type": "movie",
+      "title": "Deadpool 2",
+      "description": "The sequel to the first one.",
+      "thumbnail": "/assets/movies/marvel/deadpool/deadpool2-thumb.webp",
+      "videoUrl": "/assets/movies/marvel/deadpool/deadpool2.mp4",
+      "duration": "2h 1m",
+      "year": 2018,
+      "tags": [
+        "movie",
+        "marvel",
+        "superhero",
+        "action",
+        "comedy"
+      ]
+    },
+    {
+      "id": "movie_deadpool3_deadpoolandwolverine",
+      "type": "movie",
+      "title": "Deadpool & Wolverine",
+      "description": "Marvel Studios \"Deadpool & Wolverine\" finds Wade Wilson in the ultimate team-up with Wolverine.",
+      "thumbnail": "/assets/movies/marvel/deadpool/deadpool3-deadpoolandwolverine-thumb.webp",
+      "videoUrl": "/assets/movies/marvel/deadpool/deadpool3-deadpoolandwolverine.mp4",
+      "duration": "2h 10m",
+      "year": 2024,
+      "tags": [
+        "movie",
+        "marvel",
+        "superhero",
+        "action",
+        "comedy"
+      ]
+    },
+    {
+      "id": "movie_guardians_of_the_galaxy_vol1",
+      "type": "movie",
+      "title": "Guardians of the Galaxy Vol. 1",
+      "description": "A group of misfit heroes become the object of an unrelenting bounty hunt.",
+      "thumbnail": "/assets/movies/marvel/gotg/gotg-vol1-thumb.webp",
+      "videoUrl": "/assets/movies/marvel/gotg/gotg-vol1.mp4",
+      "duration": "2h 2m",
+      "year": 2014,
+      "tags": [
+        "movie",
+        "marvel",
+        "superhero",
+        "action",
+        "sci-fi",
+        "comedy"
+      ]
+    },
+    {
+      "id": "movie_guardians_of_the_galaxy_vol2",
+      "type": "movie",
+      "title": "Guardians of the Galaxy Vol. 2",
+      "description": "The Guardians fight to keep their newfound family together as they discover Quill's parentage.",
+      "thumbnail": "/assets/movies/marvel/gotg/gotg-vol2-thumb.webp",
+      "videoUrl": "/assets/movies/marvel/gotg/gotg-vol2.mp4",
+      "duration": "2h 17m",
+      "year": 2017,
+      "tags": [
+        "movie",
+        "marvel",
+        "superhero",
+        "action",
+        "sci-fi",
+        "comedy"
+      ]
+    },
+    {
+      "id": "movie_guardians_of_the_galaxy_vol3",
+      "type": "movie",
+      "title": "Guardians of the Galaxy Vol. 3",
+      "description": "Peter Quill must rally his team around him on a dangerous mission to save Rocket's life.",
+      "thumbnail": "/assets/movies/marvel/gotg/gotg-vol3-thumb.webp",
+      "videoUrl": "/assets/movies/marvel/gotg/gotg-vol3.mp4",
+      "duration": "2h 32m",
+      "year": 2023,
+      "tags": [
+        "movie",
+        "marvel",
+        "superhero",
+        "action",
+        "sci-fi",
+        "drama"
+      ]
+    },
+    {
+      "id": "movie_iron_man_1",
+      "type": "movie",
+      "title": "Iron Man",
+      "description": "Jet-setting industrialist Tony Stark vows to protect the world as Iron Man.",
+      "thumbnail": "/assets/movies/marvel/ironman/ironman1-thumb.webp",
+      "videoUrl": "/assets/movies/marvel/ironman/ironman1.mp4",
+      "duration": "2h 7m",
+      "year": 2008,
+      "tags": [
+        "movie",
+        "marvel",
+        "superhero",
+        "action",
+        "sci-fi"
+      ]
+    },
+    {
+      "id": "movie_iron_man_2",
+      "type": "movie",
+      "title": "Iron Man 2",
+      "description": "Inventor Tony Stark forges new alliances to confront powerful enemies.",
+      "thumbnail": "/assets/movies/marvel/ironman/ironman2-thumb.webp",
+      "videoUrl": "/assets/movies/marvel/ironman/ironman2.mp4",
+      "duration": "2h 5m",
+      "year": 2010,
+      "tags": [
+        "movie",
+        "marvel",
+        "superhero",
+        "action",
+        "sci-fi"
+      ]
+    },
+    {
+      "id": "movie_iron_man_3",
+      "type": "movie",
+      "title": "Iron Man 3",
+      "description": "His personal world destroyed, Tony Stark embarks on a harrowing quest to find those responsible.",
+      "thumbnail": "/assets/movies/marvel/ironman/ironman3-thumb.webp",
+      "videoUrl": "/assets/movies/marvel/ironman/ironman3.mp4",
+      "duration": "2h 12m",
+      "year": 2013,
+      "tags": [
+        "movie",
+        "marvel",
+        "superhero",
+        "action",
+        "sci-fi"
+      ]
+    },
+    {
+      "id": "movie_amazing_spider_man_1",
+      "type": "movie",
+      "title": "The Amazing Spider-Man",
+      "description": "Peter Parker grapples with both high school and super-human crises as his alter-ego Spider-Man.",
+      "thumbnail": "/assets/movies/marvel/spiderman/andrew/amazingspiderman1-thumb.webp",
+      "videoUrl": "/assets/movies/marvel/spiderman/andrew/amazingspiderman1.mp4",
+      "duration": "2h 16m",
+      "year": 2012,
+      "tags": [
+        "movie",
+        "marvel",
+        "superhero",
+        "action",
+        "sci-fi"
+      ]
+    },
+    {
+      "id": "movie_amazing_spider_man_2",
+      "type": "movie",
+      "title": "The Amazing Spider-Man 2",
+      "description": "Peter Parker runs the gauntlet as the company Oscorp sends up a slew of supervillains against him.",
+      "thumbnail": "/assets/movies/marvel/spiderman/andrew/amazingspiderman2-thumb.webp",
+      "videoUrl": "/assets/movies/marvel/spiderman/andrew/amazingspiderman2.mp4",
+      "duration": "2h 21m",
+      "year": 2014,
+      "tags": [
+        "movie",
+        "marvel",
+        "superhero",
+        "action",
+        "sci-fi"
+      ]
+    },
+    {
+      "id": "movie_spider_man_1",
+      "type": "movie",
+      "title": "Spider-Man",
+      "description": "Peter Parker is transformed into a superhero after he is bitten by a radioactive spider.",
+      "thumbnail": "/assets/movies/marvel/spiderman/tobey/spiderman1-thumb.webp",
+      "videoUrl": "/assets/movies/marvel/spiderman/tobey/spiderman1.mp4",
+      "duration": "2h 1m",
+      "year": 2002,
+      "tags": [
+        "movie",
+        "marvel",
+        "superhero",
+        "action",
+        "sci-fi"
+      ]
+    },
+    {
+      "id": "movie_spider_man_2",
+      "type": "movie",
+      "title": "Spider-Man 2",
+      "description": "Peter Parker is confronted by multi-tentacled menace Dr. Otto Octavius.",
+      "thumbnail": "/assets/movies/marvel/spiderman/tobey/spiderman2-thumb.webp",
+      "videoUrl": "/assets/movies/marvel/spiderman/tobey/spiderman2.mp4",
+      "duration": "2h 7m",
+      "year": 2004,
+      "tags": [
+        "movie",
+        "marvel",
+        "superhero",
+        "action",
+        "sci-fi"
+      ]
+    },
+    {
+      "id": "movie_spider_man_3",
+      "type": "movie",
+      "title": "Spider-Man 3",
+      "description": "An alien symbiote turns Spider-Man's suit black and brings his darkest demons to light.",
+      "thumbnail": "/assets/movies/marvel/spiderman/tobey/spiderman3-thumb.webp",
+      "videoUrl": "/assets/movies/marvel/spiderman/tobey/spiderman3.mp4",
+      "duration": "2h 19m",
+      "year": 2007,
+      "tags": [
+        "movie",
+        "marvel",
+        "superhero",
+        "action",
+        "sci-fi",
+        "drama"
+      ]
+    },
+    {
+      "id": "movie_spider_man_far_from_home",
+      "type": "movie",
+      "title": "Spider-Man: Far From Home",
+      "description": "Peter Parker returns in Spider-Man: Far From Home!",
+      "thumbnail": "/assets/movies/marvel/spiderman/tom/spiderman-farfromhome-thumb.webp",
+      "videoUrl": "/assets/movies/marvel/spiderman/tom/spiderman-farfromhome.mp4",
+      "duration": "2h 9m",
+      "year": 2019,
+      "tags": [
+        "movie",
+        "marvel",
+        "superhero",
+        "action",
+        "sci-fi"
+      ]
+    },
+    {
+      "id": "movie_spider_man_homecoming",
+      "type": "movie",
+      "title": "Spider-Man: Homecoming",
+      "description": "A young Peter Parker/Spider-Man navigates his newfound identity as the web-slinging superhero.",
+      "thumbnail": "/assets/movies/marvel/spiderman/tom/spiderman-homecoming-thumb.webp",
+      "videoUrl": "/assets/movies/marvel/spiderman/tom/spiderman-homecoming.mp4",
+      "duration": "2h 13m",
+      "year": 2017,
+      "tags": [
+        "movie",
+        "marvel",
+        "superhero",
+        "action",
+        "sci-fi"
+      ]
+    },
+    {
+      "id": "movie_thor_the_dark_world",
+      "type": "movie",
+      "title": "Thor: The Dark World",
+      "description": "Thor must set out on his most dangerous and personal journey yet.",
+      "thumbnail": "/assets/movies/marvel/thor/thor-thedarkworld-thumb.webp",
+      "videoUrl": "/assets/movies/marvel/thor/thor-thedarkworld.mp4",
+      "duration": "1h 55m",
+      "year": 2013,
+      "tags": [
+        "movie",
+        "marvel",
+        "superhero",
+        "action",
+        "fantasy"
+      ]
+    },
+    {
+      "id": "movie_thor",
+      "type": "movie",
+      "title": "Thor",
+      "description": "Thor, Asgard's greatest hero, reignites an ancient war that he must take part in from Earth.",
+      "thumbnail": "/assets/movies/marvel/thor/thor-thumb.webp",
+      "videoUrl": "/assets/movies/marvel/thor/thor.mp4",
+      "duration": "1h 57m",
+      "year": 2011,
+      "tags": [
+        "movie",
+        "marvel",
+        "superhero",
+        "action",
+        "fantasy"
+      ]
+    },
+    {
+      "id": "movie_rogue_one_a_star_wars_story",
+      "type": "movie",
+      "title": "Rogue One: A Star Wars Story",
+      "description": "Unlikely heroes band together to steal the plans to the Death Star.",
+      "thumbnail": "/assets/movies/starwars/rogueone-thumb.webp",
+      "videoUrl": "/assets/movies/starwars/rogueone.mp4",
+      "duration": "2h 16m",
+      "year": 2016,
+      "tags": [
+        "movie",
+        "star wars",
+        "sci-fi",
+        "action",
+        "adventure"
+      ]
+    },
+    {
+      "id": "movie_star_wars_episode_i_the_phantom_menace",
+      "type": "movie",
+      "title": "Star Wars: Episode I - The Phantom Menace",
+      "description": "Jedi discover Anakin Skywalker, a boy unusually strong in the Force.",
+      "thumbnail": "/assets/movies/starwars/starwars-e1-thephantommenace-thumb.webp",
+      "videoUrl": "/assets/movies/starwars/starwars-e1-thephantommenace.mp4",
+      "duration": "2h 17m",
+      "year": 1999,
+      "tags": [
+        "movie",
+        "star wars",
+        "sci-fi",
+        "action",
+        "adventure",
+        "fantasy"
+      ]
+    },
+    {
+      "id": "movie_star_wars_episode_ii_attack_of_the_clones",
+      "type": "movie",
+      "title": "Star Wars: Episode II - Attack of the Clones",
+      "description": "Young Anakin and Padmé fall in love as galactic war looms.",
+      "thumbnail": "/assets/movies/starwars/starwars-e2-attackoftheclones-thumb.webp",
+      "videoUrl": "/assets/movies/starwars/starwars-e2-attackoftheclones.mp4",
+      "duration": "2h 23m",
+      "year": 2002,
+      "tags": [
+        "movie",
+        "star wars",
+        "sci-fi",
+        "action",
+        "adventure",
+        "romance"
+      ]
+    },
+    {
+      "id": "movie_star_wars_episode_iii_revenge_of_the_sith",
+      "type": "movie",
+      "title": "Star Wars: Episode III - Revenge of the Sith",
+      "description": "As the Republic falls, Anakin Skywalker becomes the evil Darth Vader.",
+      "thumbnail": "/assets/movies/starwars/starwars-e3-revengeofthesith-thumb.webp",
+      "videoUrl": "/assets/movies/starwars/starwars-e3-revengeofthesith.mp4",
+      "duration": "2h 21m",
+      "year": 2005,
+      "tags": [
+        "movie",
+        "star wars",
+        "sci-fi",
+        "action",
+        "adventure",
+        "drama"
+      ]
+    },
+    {
+      "id": "movie_star_wars_episode_iv_a_new_hope",
+      "type": "movie",
+      "title": "Star Wars: Episode IV - A New Hope",
+      "description": "A young farm boy intercepts a distress call from the captive Princess Leia.",
+      "thumbnail": "/assets/movies/starwars/starwars-e4-anewhope-thumb.webp",
+      "videoUrl": "/assets/movies/starwars/starwars-e4-anewhope.mp4",
+      "duration": "2h 5m",
+      "year": 1977,
+      "tags": [
+        "movie",
+        "star wars",
+        "sci-fi",
+        "action",
+        "adventure"
+      ]
+    },
+    {
+      "id": "movie_star_wars_episode_v_the_empire_strikes_back",
+      "type": "movie",
+      "title": "Star Wars: Episode V - The Empire Strikes Back",
+      "description": "Luke Skywalker trains as a Jedi and confronts Darth Vader.",
+      "thumbnail": "/assets/movies/starwars/starwars-e5-theempirestrikesback-thumb.webp",
+      "videoUrl": "/assets/movies/starwars/starwars-e5-theempirestrikesback.mp4",
+      "duration": "2h 8m",
+      "year": 1980,
+      "tags": [
+        "movie",
+        "star wars",
+        "sci-fi",
+        "action",
+        "adventure",
+        "drama"
+      ]
+    },
+    {
+      "id": "movie_star_wars_episode_vi_return_of_the_jedi",
+      "type": "movie",
+      "title": "Star Wars: Episode VI - Return of the Jedi",
+      "description": "Luke Skywalker faces Darth Vader in a final duel.",
+      "thumbnail": "/assets/movies/starwars/starwars-e6-returnofthejedi-thumb.webp",
+      "videoUrl": "/assets/movies/starwars/starwars-e6-returnofthejedi.mp4",
+      "duration": "2h 16m",
+      "year": 1983,
+      "tags": [
+        "movie",
+        "star wars",
+        "sci-fi",
+        "action",
+        "adventure"
+      ]
+    },
+    {
+      "id": "movie_star_wars_episode_vii_the_force_awakens",
+      "type": "movie",
+      "title": "Star Wars: Episode VII - The Force Awakens",
+      "description": "Rey, Finn, Han and Chewbacca search for the one hope of restoring peace.",
+      "thumbnail": "/assets/movies/starwars/starwars-e7-theforceawakens-thumb.webp",
+      "videoUrl": "/assets/movies/starwars/starwars-e7-theforceawakens.mp4",
+      "duration": "2h 21m",
+      "year": 2015,
+      "tags": [
+        "movie",
+        "star wars",
+        "sci-fi",
+        "action",
+        "adventure"
+      ]
+    },
+    {
+      "id": "movie_star_wars_episode_viii_the_last_jedi",
+      "type": "movie",
+      "title": "Star Wars: Episode VIII - The Last Jedi",
+      "description": "New heroes and galactic legends join to unlock mysteries of the Force.",
+      "thumbnail": "/assets/movies/starwars/starwars-e8-thelastjedi-thumb.webp",
+      "videoUrl": "/assets/movies/starwars/starwars-e8-thelastjedi.mp4",
+      "duration": "2h 34m",
+      "year": 2017,
+      "tags": [
+        "movie",
+        "star wars",
+        "sci-fi",
+        "action",
+        "adventure",
+        "drama"
+      ]
+    },
+    {
+      "id": "movie_star_wars_episode_ix_the_rise_of_skywalker",
+      "type": "movie",
+      "title": "Star Wars: Episode IX - The Rise of Skywalker",
+      "description": "The landmark Skywalker saga comes to a conclusion.",
+      "thumbnail": "/assets/movies/starwars/starwars-e9-theriseofskywalker-thumb.webp",
+      "videoUrl": "/assets/movies/starwars/starwars-e9-theriseofskywalker.mp4",
+      "duration": "2h 23m",
+      "year": 2019,
+      "tags": [
+        "movie",
+        "star wars",
+        "sci-fi",
+        "action",
+        "adventure"
+      ]
+    },
+    {
+      "id": "tvshow_family_guy",
+      "type": "tvshow",
+      "title": "Family Guy",
+      "description": "The adventures of an endearingly ignorant dad and his hilariously eccentric family living in New England.",
+      "thumbnail": "/assets/tvshows/familyguy/familyguy-thumb.webp",
+      "Duration": "22-23m per episode",
+      "year": "1999-2026",
+      "tags": [
+        "tvshow",
+        "animation",
+        "comedy",
+        "adult"
+      ],
+      "seasons": [
+        {
+          "seasonNumber": "Exclusives",
+          "episodes": [
+            {
+              "episodeNumber": 1,
+              "title": "Halloween 2024: Peter, Peter, Pumkin Cheater",
+              "description": "Drunken Peter faces the wrath of Lois and his employer.",
+              "thumbnail": "/assets/tvshows/familyguy/exclusives/episode1-thumb.webp",
+              "videoUrl": "/assets/tvshows/familyguy/exclusives/episode1.mp4",
+              "duration": "22m"
+            },
+            {
+              "episodeNumber": 2,
+              "title": "Holiday 2024: Gift of the White Guy",
+              "description": "Teaching Meg to drive, Peter wrecks a satellite dish.",
+              "thumbnail": "/assets/tvshows/familyguy/exclusives/episode2-thumb.webp",
+              "videoUrl": "/assets/tvshows/familyguy/exclusives/episode2.mp4",
+              "duration": "22m"
+            },
+            {
+              "episodeNumber": 3,
+              "title": "Halloween 2025: A Little Fright Music",
+              "description": "Meg goes to at a party that is really a cult meeting.",
+              "thumbnail": "/assets/tvshows/familyguy/exclusives/episode3-thumb.webp",
+              "videoUrl": "/assets/tvshows/familyguy/exclusives/episode3.mp4",
+              "duration": "22m"
+            },
+            {
+              "episodeNumber": 4,
+              "title": "Holiday 2025: Disney's Hulu's Family Guy's Hallmark Channel's Lifetime's Unoriginal Holiday Movie",
+              "description": "Peter punches a pregnant woman he thinks is a man.",
+              "thumbnail": "/assets/tvshows/familyguy/exclusives/episode4-thumb.webp",
+              "videoUrl": "/assets/tvshows/familyguy/exclusives/episode4.mp4",
+              "duration": "23m"
+            }
+          ]
+        },
+        {
+          "seasonNumber": 1,
+          "episodes": [
+            {
+              "episodeNumber": 1,
+              "title": "Death Has a Shadow",
+              "description": "Drunken Peter faces the wrath of Lois and his employer.",
+              "thumbnail": "/assets/tvshows/familyguy/s1/episode1-thumb.webp",
+              "videoUrl": "/assets/tvshows/familyguy/s1/episode1.mp4",
+              "duration": "23m"
+            },
+            {
+              "episodeNumber": 2,
+              "title": "I Never Met the Dead Man",
+              "description": "Teaching Meg to drive, Peter wrecks a satellite dish.",
+              "thumbnail": "/assets/tvshows/familyguy/s1/episode2-thumb.webp",
+              "videoUrl": "/assets/tvshows/familyguy/s1/episode2.mp4",
+              "duration": "23m"
+            },
+            {
+              "episodeNumber": 3,
+              "title": "Chitty Chitty Death Bang",
+              "description": "Meg goes to at a party that is really a cult meeting.",
+              "thumbnail": "/assets/tvshows/familyguy/s1/episode3-thumb.webp",
+              "videoUrl": "/assets/tvshows/familyguy/s1/episode3.mp4",
+              "duration": "23m"
+            },
+            {
+              "episodeNumber": 4,
+              "title": "Mind Over Murder",
+              "description": "Peter punches a pregnant woman he thinks is a man.",
+              "thumbnail": "/assets/tvshows/familyguy/s1/episode4-thumb.webp",
+              "videoUrl": "/assets/tvshows/familyguy/s1/episode4.mp4",
+              "duration": "23m"
+            },
+            {
+              "episodeNumber": 5,
+              "title": "A Hero Sits Next Door",
+              "description": "Peter is iealous of the attention lavished on a neighbor.",
+              "thumbnail": "/assets/tvshows/familyguy/s1/episode5-thumb.webp",
+              "videoUrl": "/assets/tvshows/familyguy/s1/episode5.mp4",
+              "duration": "23m"
+            },
+            {
+              "episodeNumber": 6,
+              "title": "The Son Also Draws",
+              "description": "Lois loses $20,000 gambling at the Indian casino.",
+              "thumbnail": "/assets/tvshows/familyguy/s1/episode6-thumb.webp",
+              "videoUrl": "/assets/tvshows/familyguy/s1/episode6.mp4",
+              "duration": "23m"
+            },
+            {
+              "episodeNumber": 7,
+              "title": "Brian: Portrait of a Dog",
+              "description": "Brian rebels when Peter enters him in a dog show.",
+              "thumbnail": "/assets/tvshows/familyguy/s1/episode7-thumb.webp",
+              "videoUrl": "/assets/tvshows/familyguy/s1/episode7.mp4",
+              "duration": "23m"
+            }
+          ]
+        },
+        {
+          "seasonNumber": 2,
+          "episodes": [
+            {
+              "episodeNumber": 1,
+              "title": "Peter, Peter, Caviar Eater",
+              "description": "Lois' aunt dies and leaves her mansion to the Griffins.",
+              "thumbnail": "/assets/tvshows/familyguy/s2/episode1-thumb.webp",
+              "videoUrl": "/assets/tvshows/familyguy/s2/episode1.mp4",
+              "duration": "23m"
+            },
+            {
+              "episodeNumber": 2,
+              "title": "Holy Crap!",
+              "description": "Peter invites his retired father to live with the family.",
+              "thumbnail": "/assets/tvshows/familyguy/s2/episode2-thumb.webp",
+              "videoUrl": "/assets/tvshows/familyguy/s2/episode2.mp4",
+              "duration": "23m"
+            }
+          ]
+        },
+        {
+          "seasonNumber": 23,
+          "episodes": [
+            {
+              "episodeNumber": 18,
+              "title": "Twain's World",
+              "description": "Brian convinces Stewie to go back in time and bring Mark Twain to the present-day.",
+              "thumbnail": "/assets/tvshows/familyguy/s23/episode18-thumb.webp",
+              "videoUrl": "/assets/tvshows/familyguy/s23/episode18.mp4",
+              "duration": "22m"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tvshow_md",
+      "type": "tvshow",
+      "title": "Murder Drones",
+      "description": "Murder Drones is a show about cute little robots that murder eachother for reasons 💀🤠",
+      "thumbnail": "/assets/tvshows/indie/md/md-thumb.webp",
+      "Duration": "17-27m per episode",
+      "year": "2021-2024",
+      "tags": [
+        "tvshow",
+        "animation",
+        "indie",
+        "action",
+        "horror",
+        "comedy",
+        "featured"
+      ],
+      "seasons": [
+        {
+          "seasonNumber": 1,
+          "episodes": [
+            {
+              "episodeNumber": 1,
+              "title": "PILOT",
+              "description": "Welcome to Copper 9! Try not to die ☠️🤖🔪",
+              "thumbnail": "/assets/tvshows/indie/md/episode1-thumb.webp",
+              "videoUrl": "/assets/tvshows/indie/md/episode1.mp4",
+              "duration": "27m"
+            },
+            {
+              "episodeNumber": 2,
+              "title": "Heartbeat",
+              "description": "WE ARE BACK ☠️🤖🔪",
+              "thumbnail": "/assets/tvshows/indie/md/episode2-thumb.webp",
+              "videoUrl": "/assets/tvshows/indie/md/episode2.mp4",
+              "duration": "17m"
+            },
+            {
+              "episodeNumber": 3,
+              "title": "The Promening",
+              "description": "Will you go to the prom with me?  🔪😈",
+              "thumbnail": "/assets/tvshows/indie/md/episode3-thumb.webp",
+              "videoUrl": "/assets/tvshows/indie/md/episode3.mp4",
+              "duration": "19m"
+            },
+            {
+              "episodeNumber": 4,
+              "title": "Cabin Fever",
+              "description": "We goin campin' 🏕️ ... Uzi you ok?",
+              "thumbnail": "/assets/tvshows/indie/md/episode4-thumb.webp",
+              "videoUrl": "/assets/tvshows/indie/md/episode4.mp4",
+              "duration": "21m"
+            },
+            {
+              "episodeNumber": 5,
+              "title": "Home",
+              "description": "SPOOKY MANOR AND BIG REVEALS",
+              "thumbnail": "/assets/tvshows/indie/md/episode5-thumb.webp",
+              "videoUrl": "/assets/tvshows/indie/md/episode5.mp4",
+              "duration": "20m"
+            },
+            {
+              "episodeNumber": 6,
+              "title": "Dead End",
+              "description": "Lots of monsters in this episode... WHY ARE THERE SO MANY MONSTERS?!",
+              "thumbnail": "/assets/tvshows/indie/md/episode6-thumb.webp",
+              "videoUrl": "/assets/tvshows/indie/md/episode6.mp4",
+              "duration": "21m"
+            },
+            {
+              "episodeNumber": 7,
+              "title": "Mass Destruction",
+              "description": "As Uzi and N are put to the ultimate test, the origins of things are finally revealed.",
+              "thumbnail": "/assets/tvshows/indie/md/episode7-thumb.webp",
+              "videoUrl": "/assets/tvshows/indie/md/episode7.mp4",
+              "duration": "26m"
+            },
+            {
+              "episodeNumber": 8,
+              "title": "Absolute End",
+              "description": "In the series finale of Murder Drones, Uzi and N face off against Cyn in an epic battle that will change the universe forever.",
+              "thumbnail": "/assets/tvshows/indie/md/episode8-thumb.webp",
+              "videoUrl": "/assets/tvshows/indie/md/episode8.mp4",
+              "duration": "21m"
+            }
+          ]
+        },
+        {
+          "seasonNumber": "Full Movie",
+          "episodes": [
+            {
+              "episodeNumber": 1,
+              "title": "Murder Drones[Full Movie]",
+              "description": "Murder Drones is a show about cute little robots that murder eachother for reasons 💀🤠",
+              "thumbnail": "/assets/tvshows/indie/md/md-thumb.webp",
+              "videoUrl": "/assets/tvshows/indie/md/md.mp4",
+              "duration": "2h 48m"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tvshow_tadc",
+      "type": "tvshow",
+      "title": "The Amazing Digital Circus",
+      "description": "The Amazing Digital Circus is a psychological dark comedy about cute cartoon characters who hate their lives and want to leave 🎪😀",
+      "thumbnail": "/assets/tvshows/indie/tadc/tadc-thumb.webp",
+      "Duration": "23-58m per episode",
+      "year": "2023-2026",
+      "tags": [
+        "tvshow",
+        "animation",
+        "indie",
+        "comedy",
+        "horror",
+        "featured"
+      ],
+      "seasons": [
+        {
+          "seasonNumber": 1,
+          "episodes": [
+            {
+              "episodeNumber": 1,
+              "title": "PILOT",
+              "description": "Pomni wakes up in the Circus! She meets her new forever friends! She discovers there is NO EXIT!",
+              "thumbnail": "/assets/tvshows/indie/tadc/episode1-thumb.webp",
+              "videoUrl": "/assets/tvshows/indie/tadc/episode1.mp4",
+              "duration": "26m"
+            },
+            {
+              "episodeNumber": 2,
+              "title": "Candy Carrier Chaos!",
+              "description": "The gang are BACK for a WAaAaAaACKY candy filled adventure! They also discover that their lives literally have no meaning. Woohoo! So waaccky!!!!!",
+              "thumbnail": "/assets/tvshows/indie/tadc/episode2-thumb.webp",
+              "videoUrl": "/assets/tvshows/indie/tadc/episode2.mp4",
+              "duration": "25m"
+            },
+            {
+              "episodeNumber": 3,
+              "title": "The Mystery Of Mildenhall Manor",
+              "description": "The gang are back together to go on their next SPOOKY adventure. Kinger gets a shotgun! Zooble goes to therapy! Pomni goes to hell! So much fun awaits!!!!!",
+              "thumbnail": "/assets/tvshows/indie/tadc/episode3-thumb.webp",
+              "videoUrl": "/assets/tvshows/indie/tadc/episode3.mp4",
+              "duration": "25m"
+            },
+            {
+              "episodeNumber": 4,
+              "title": "Fast Food Masquerade",
+              "description": "Pomni and friends spend an honest day’s hard work at popular fast food chain; Spudsy’s! Keep an eye out though, Gangle is the manager and has a brand new mask… it’s like she’s a whole NEW person!",
+              "thumbnail": "/assets/tvshows/indie/tadc/episode4-thumb.webp",
+              "videoUrl": "/assets/tvshows/indie/tadc/episode4.mp4",
+              "duration": "23m"
+            },
+            {
+              "episodeNumber": 5,
+              "title": "Untitled",
+              "description": "We aren't actually sure what this episode is about.",
+              "thumbnail": "/assets/tvshows/indie/tadc/episode5-thumb.webp",
+              "videoUrl": "/assets/tvshows/indie/tadc/episode5.mp4",
+              "duration": "26m"
+            },
+            {
+              "episodeNumber": 6,
+              "title": "They All Get Guns",
+              "description": "In this episode: gun.",
+              "thumbnail": "/assets/tvshows/indie/tadc/episode6-thumb.webp",
+              "videoUrl": "/assets/tvshows/indie/tadc/episode6.mp4",
+              "duration": "34m"
+            },
+            {
+              "episodeNumber": 7,
+              "title": "Beach Episode",
+              "description": "Beach episode!!!!!!",
+              "thumbnail": "/assets/tvshows/indie/tadc/episode7-thumb.webp",
+              "videoUrl": "/assets/tvshows/indie/tadc/episode7.mp4",
+              "duration": "33m"
+            },
+            {
+              "episodeNumber": 8,
+              "title": "hjsakldfhl",
+              "description": "OH...",
+              "thumbnail": "/assets/tvshows/indie/tadc/episode8-thumb.webp",
+              "videoUrl": "/assets/tvshows/indie/tadc/episode8.mp4",
+              "duration": "32m"
+            },
+            {
+              "episodeNumber": 9,
+              "title": "Remember",
+              "description": "The Amazing Digital Circus comes to an end.",
+              "thumbnail": "/assets/tvshows/indie/tadc/episode9-thumb.webp",
+              "videoUrl": "/assets/tvshows/indie/tadc/episode9.mp4",
+              "duration": "58m"
+            }
+          ]
+        },
+        {
+          "seasonNumber": "Full Movie",
+          "episodes": [
+            {
+              "episodeNumber": 1,
+              "title": "The Amazing Digital Circus[Full Movie]",
+              "description": "The Amazing Digital Circus is a psychological dark comedy about cute cartoon characters who hate their lives and want to leave 🎪😀",
+              "thumbnail": "/assets/tvshows/indie/tadc/tadc-thumb.webp",
+              "videoUrl": "/assets/tvshows/indie/tadc/tadc.mp4",
+              "duration": "4h 34m"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

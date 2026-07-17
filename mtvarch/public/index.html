@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie/TV Show Archive</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="https://assets.techsusindustries.com/favicons-other/favicon-mtvarch.png">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">Movie/TV Show Archive</div>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search titles, tags...">
+        </div>
+    </nav>
+
+    <div id="app" class="main-container">
+        </div>
+
+    <div id="infoModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-preview">
+                <img id="modalImg" src="" alt="Preview">
+                <div class="play-overlay">
+                    <button id="playBtn">▶ PLAY</button>
+                </div>
+            </div>
+            <div class="modal-details">
+                <h2 id="modalTitle">Title</h2>
+                <div class="meta-row">
+                    <span id="modalDuration" class="meta-tag">0:00</span>
+                    <span id="modalFormat" class="meta-tag red-tag">Format</span>
+                </div>
+                <p id="modalDesc">Description goes here...</p>
+                <div id="modalTags" class="tags-container"></div>
+                <div id="seasonsContainer" class="seasons-container" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password Verification Modal -->
+    <div id="passwordModal" class="password-modal hidden">
+        <div class="password-container">
+            <h1>Service Verification Required</h1>
+            <p class="subtitle">Enter access password for Movie/TV Show Archive</p>
+            <form id="verify-form">
+                <div class="input-group">
+                    <label for="password">Access Password</label>
+                    <input type="password" id="password" placeholder="••••••••" required autocomplete="off">
+                </div>
+                <button type="submit" id="submit-btn">
+                    <span id="btn-text">Verify Access</span>
+                    <span id="btn-loader" class="loader hidden"></span>
+                </button>
+            </form>
+            <div class="error" id="error-message">Invalid password. Please try again.</div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

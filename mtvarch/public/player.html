@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>M/TV Player</title>
+    <link rel="icon" type="image/x-icon" href="https://assets.techsusindustries.com/favicons-other/favicon-mtvarch.png">
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #000;
+            overflow: hidden;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        #video-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #main-video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+
+        /* Title Display */
+        #video-title {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: white;
+            font-size: 20px;
+            text-shadow: 0 0 10px rgba(0,0,0,0.8);
+            z-index: 9997;
+            padding: 0 20px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        #video-title.visible {
+            opacity: 1;
+        }
+
+        /* Modern Video Controls */
+        .video-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 24px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 24px;
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s;
+            min-width: 400px;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .video-controls.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .control-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            pointer-events: auto;
+        }
+
+        .control-btn .icon {
+            pointer-events: none;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .control-btn.play-btn {
+            width: 40px;
+            height: 40px;
+        }
+
+        .icon {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        .progress-container {
+            flex-grow: 1;
+            max-width: 500px;
+            min-width: 200px;
+            margin: 0 15px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 5px;
+            -webkit-appearance: none;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .progress-bar::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+        }
+
+        .time-display {
+            color: white;
+            font-size: 14px;
+            margin: 0 10px;
+            font-family: sans-serif;
+            min-width: 80px;
+            text-align: center;
+        }
+
+
+        /* Start Screen Overlay Styles */
+        #start-screen {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease-out;
+        }
+
+        #start-btn {
+            padding: 15px 30px;
+            font-size: 20px;
+            color: white;
+            background: #cc0000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px;
+        }
+
+        #start-btn:hover { background: #ff0000; }
+        
+        #video-info {
+            color: white;
+            text-align: center;
+            max-width: 600px;
+            padding: 0 20px;
+        }
+        
+        #video-info h2 {
+            margin: 0 0 10px 0;
+        }
+        
+        #video-info p {
+            margin: 5px 0;
+            color: #ccc;
+        }
+    </style>
+  </head>
+  <body>
+    <div id="video-container">
+        <video id="main-video" preload="metadata" playsinline webkit-playsinline controlsList="nodownload" crossOrigin="anonymous"></video>
+
+        <div id="video-title"></div>
+
+        <!-- Modern Video Controls -->
+        <div id="video-controls" class="video-controls">
+            <button id="backBtn" class="control-btn" onclick="window.history.back()" title="Back to Library">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                </svg>
+            </button>
+
+            <button id="playPauseBtn" class="control-btn play-btn">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path id="playIcon" d="M8 5v14l11-7z"/>
+                    <path id="pauseIcon" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" style="display: none;"/>
+                </svg>
+            </button>
+
+            <div class="progress-container">
+                <input type="range" id="progressBar" class="progress-bar" min="0" max="100" value="0">
+            </div>
+
+            <div class="time-display">
+                <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+            </div>
+
+            <button id="muteBtn" class="control-btn">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path id="volumeHigh" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                    <path id="volumeMuted" d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" style="display: none;"/>
+                </svg>
+            </button>
+
+            <button id="fullscreenBtn" class="control-btn">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path id="expandIcon" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+                    <path id="compressIcon" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z" style="display: none;"/>
+                </svg>
+            </button>
+        </div>
+
+        <div id="start-screen">
+            <div id="video-info">
+                <h2 id="start-title">Loading Video...</h2>
+                <p id="start-desc"></p>
+            </div>
+            <button id="start-btn">Click this if video does not automatically start</button>
+        </div>
+    </div>
+
+    <script>
+      // Password Verification Check
+      const SESSION_KEY = 'mtvarch_verified';
+      
+      function checkVerification() {
+          const verified = sessionStorage.getItem(SESSION_KEY);
+          return verified === 'true';
+      }
+      
+      // Redirect to unauthorized page if not verified
+      if (!checkVerification()) {
+          window.location.href = '/unauthorized.html';
+      }
+    
+      // 1. Get Params
+      const params = new URLSearchParams(window.location.search);
+      const videoSrc = params.get('video');
+      const format = params.get('format') || 'flat';
+      const title = decodeURIComponent(params.get('title') || 'Video');
+
+      const videoEl = document.getElementById('main-video');
+      const startScreen = document.getElementById('start-screen');
+      const startBtn = document.getElementById('start-btn');
+      const videoTitle = document.getElementById('video-title');
+      const startTitle = document.getElementById('start-title');
+      const startDesc = document.getElementById('start-desc');
+
+      // Set the video title
+      videoTitle.textContent = title;
+      startTitle.textContent = title;
+
+      // 2. Video Loading Logic
+      console.log('VideoSrc parameter:', videoSrc);
+      if (videoSrc) {
+        // Handle assets by replacing /assets with the proper path if needed
+        let processedVideoSrc = videoSrc;
+
+        // If the videoSrc starts with /assets, it means it should come from the flash drive
+        if (videoSrc.startsWith('/assets')) {
+          // The server is configured to serve /assets from the flash drive, so we can use the path as-is
+          processedVideoSrc = videoSrc;
+        }
+
+        console.log('Processed video source:', processedVideoSrc);
+        
+        // Check if the file is an MKV file, which may not be supported on mobile
+        if (processedVideoSrc.toLowerCase().endsWith('.mkv')) {
+          // MKV files may not be supported on mobile browsers
+          // Show a message to the user
+          startBtn.textContent = 'Unsupported Format';
+          startBtn.style.backgroundColor = '#666';
+          startBtn.disabled = true;
+
+          // Add a message about format compatibility
+          const formatMsg = document.createElement('p');
+          formatMsg.id = 'format-warning';
+          formatMsg.style.color = '#ff9999';
+          formatMsg.style.marginTop = '10px';
+          formatMsg.textContent = 'MKV format may not be supported on all devices. Consider converting to MP4.';
+          document.getElementById('video-info').appendChild(formatMsg);
+        }
+        else {
+          console.log('Setting video source to:', processedVideoSrc);
+          videoEl.src = processedVideoSrc;
+          videoEl.load(); // Force loading of the video
+          
+          // Log when different events happen
+          videoEl.addEventListener('loadstart', function() {
+            console.log('Load started for:', processedVideoSrc);
+          });
+          
+          videoEl.addEventListener('loadedmetadata', function() {
+            console.log('Metadata loaded, duration:', videoEl.duration);
+            startBtn.disabled = false;
+            startTitle.textContent = 'Ready to Play';
+          });
+          
+          videoEl.addEventListener('canplay', function() {
+            console.log('Video can play');
+            startBtn.disabled = false;
+            if (startTitle.textContent === 'Loading Video...') {
+              startTitle.textContent = 'Ready to Play';
+            }
+            
+            // Ensure audio is not muted when video can play
+            videoEl.muted = false;
+            videoEl.volume = 1.0;
+          });
+          
+          videoEl.addEventListener('error', function(e) {
+            console.error('Video loading error:', e);
+            console.error('Error details:', videoEl.error);
+            startBtn.textContent = 'Error Loading Video';
+            startBtn.style.backgroundColor = '#cc0000';
+            startBtn.disabled = true;
+          });
+          
+          videoEl.addEventListener('abort', function() {
+            console.log('Video loading aborted');
+          });
+        }
+      } else {
+        // No video source provided
+        console.log('No video source provided');
+        startBtn.textContent = 'Invalid Video Source';
+        startBtn.style.backgroundColor = '#666';
+        startBtn.disabled = true;
+      }
+
+      // 3. Start Button Logic - Now triggers autoplay
+      startBtn.addEventListener('click', function() {
+          // Remove the default video controls to prevent conflicts during initial play
+          videoEl.removeAttribute('controls');
+
+          // Ensure volume is not muted and set to a reasonable level
+          videoEl.muted = false;
+          videoEl.volume = 1.0;
+
+          // Play the video
+          const playPromise = videoEl.play();
+
+          if (playPromise !== undefined) {
+              playPromise.then(() => {
+                  console.log("Video playing");
+                  // Hide the start screen immediately
+                  startScreen.style.opacity = '0';
+                  setTimeout(() => {
+                      startScreen.style.display = 'none';
+                  }, 300);
+
+                  // Show the custom controls
+                  document.getElementById('video-controls').classList.add('visible');
+                  document.getElementById('video-title').classList.add('visible');
+
+                  // Ensure volume remains unmuted after playback starts
+                  videoEl.muted = false;
+                  videoEl.volume = 1.0;
+              }).catch(e => {
+                  console.error("Play failed", e);
+                  // Attempt to play again after a brief moment to handle browser policies
+                  setTimeout(() => {
+                      videoEl.muted = false;
+                      videoEl.volume = 1.0;
+                      videoEl.play().then(() => {
+                          // Hide the start screen
+                          startScreen.style.opacity = '0';
+                          setTimeout(() => {
+                              startScreen.style.display = 'none';
+                          }, 300);
+
+                          // Show the custom controls
+                          document.getElementById('video-controls').classList.add('visible');
+                          document.getElementById('video-title').classList.add('visible');
+
+                          videoEl.muted = false;
+                          videoEl.volume = 1.0;
+                      }).catch(err => {
+                          console.error("Retry play failed", err);
+                          alert("Failed to play video: " + err.message);
+                      });
+                  }, 100);
+              });
+          }
+      });
+
+      // Auto-play when the page loads (after setting up the video source)
+      videoEl.addEventListener('loadedmetadata', function() {
+          // Try to play the video automatically when metadata is loaded
+          if (videoSrc) {
+              // Small delay to ensure video is loaded
+              setTimeout(() => {
+                  // Try to play the video automatically
+                  videoEl.muted = false; // Ensure audio is not muted
+                  videoEl.volume = 1.0; // Ensure volume is set
+                  const playPromise = videoEl.play();
+
+                  if (playPromise !== undefined) {
+                      playPromise.then(() => {
+                          console.log("Auto-playing video");
+                          // Hide the start screen
+                          startScreen.style.opacity = '0';
+                          setTimeout(() => {
+                              startScreen.style.display = 'none';
+                          }, 300);
+
+                          // Show the custom controls
+                          document.getElementById('video-controls').classList.add('visible');
+                          document.getElementById('video-title').classList.add('visible');
+
+                          // Ensure volume is unmuted after playback starts
+                          videoEl.muted = false;
+                          videoEl.volume = 1.0;
+                      }).catch(e => {
+                          console.info("Autoplay failed, showing start screen:", e);
+                          // If autoplay fails, keep the start screen visible
+                          // This is expected behavior in many browsers due to autoplay policies
+                          
+                          // Still show controls even if autoplay fails
+                          document.getElementById('video-controls').classList.add('visible');
+                          document.getElementById('video-title').classList.add('visible');
+                      });
+                  }
+              }, 300); // Small delay to ensure everything is loaded
+          }
+      });
+
+      // 4. Exit on End (optional - remove if you want continuous playback)
+      videoEl.addEventListener('ended', function() {
+          console.log("Video ended");
+          // Show controls when video ends
+          document.getElementById('video-title').classList.add('visible');
+          document.getElementById('video-controls').classList.add('visible');
+          
+          // Optionally redirect back to library after a delay
+          // setTimeout(() => window.history.back(), 3000);
+      });
+      
+      // Additional event listeners to handle play/pause state properly
+      videoEl.addEventListener('play', function() {
+          console.log("Video started playing");
+          // Update play/pause button icon
+          document.getElementById('playIcon').style.display = 'none';
+          document.getElementById('pauseIcon').style.display = 'block';
+          
+          // Show controls when video starts playing
+          showControls();
+      });
+
+      videoEl.addEventListener('pause', function() {
+          console.log("Video paused");
+          // Update play/pause button icon
+          document.getElementById('playIcon').style.display = 'block';
+          document.getElementById('pauseIcon').style.display = 'none';
+          
+          // Show controls when video is paused
+          document.getElementById('video-title').classList.add('visible');
+          document.getElementById('video-controls').classList.add('visible');
+      });
+      
+      // Handle waiting state to prevent interruptions
+      videoEl.addEventListener('waiting', function() {
+          console.log("Video buffering...");
+          // Show controls while buffering to give user feedback
+          showControls();
+      });
+
+      videoEl.addEventListener('playing', function() {
+          console.log("Video playing after buffering");
+          // Wait a bit after video starts playing, then hide controls
+          setTimeout(hideControls, 3000);
+      });
+      
+      // Modern Controls Setup
+      const playPauseBtn = document.getElementById('playPauseBtn');
+      const progressBar = document.getElementById('progressBar');
+      const currentTimeSpan = document.getElementById('currentTime');
+      const durationSpan = document.getElementById('duration');
+      const muteBtn = document.getElementById('muteBtn');
+      const fullscreenBtn = document.getElementById('fullscreenBtn');
+      const videoContainer = document.getElementById('video-container');
+      
+      // Play/Pause button functionality
+      playPauseBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          if (videoEl.paused) {
+              videoEl.muted = false;
+              videoEl.volume = 1.0;
+              videoEl.play();
+          } else {
+              videoEl.pause();
+          }
+      });
+      
+      // Progress bar functionality
+      let isSeeking = false;
+
+      videoEl.addEventListener('timeupdate', function() {
+          if (!isSeeking) {
+              const percent = (videoEl.currentTime / videoEl.duration) * 100;
+              progressBar.value = isNaN(percent) ? 0 : percent;
+
+              // Update time display
+              currentTimeSpan.textContent = formatTime(videoEl.currentTime);
+          }
+      });
+
+      progressBar.addEventListener('input', function() {
+          isSeeking = true;
+          const time = videoEl.duration * (progressBar.value / 100);
+          videoEl.currentTime = time;
+          currentTimeSpan.textContent = formatTime(time);
+      });
+
+      progressBar.addEventListener('change', function() {
+          isSeeking = false;
+          const time = videoEl.duration * (progressBar.value / 100);
+          videoEl.currentTime = time;
+      });
+      
+      // Duration update when metadata is loaded
+      videoEl.addEventListener('loadedmetadata', function() {
+          durationSpan.textContent = formatTime(videoEl.duration);
+      });
+      
+      // Volume mute/unmute functionality
+      let isMuted = false;
+      muteBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          isMuted = !videoEl.muted;
+          videoEl.muted = isMuted;
+
+          if (isMuted) {
+              document.getElementById('volumeHigh').style.display = 'none';
+              document.getElementById('volumeMuted').style.display = 'block';
+          } else {
+              document.getElementById('volumeHigh').style.display = 'block';
+              document.getElementById('volumeMuted').style.display = 'none';
+          }
+      });
+      
+      // Fullscreen functionality
+      fullscreenBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          if (!document.fullscreenElement) {
+              // Enter fullscreen
+              if (videoContainer.requestFullscreen) {
+                  videoContainer.requestFullscreen();
+              } else if (videoContainer.webkitRequestFullscreen) { /* Safari */
+                  videoContainer.webkitRequestFullscreen();
+              } else if (videoContainer.msRequestFullscreen) { /* IE11 */
+                  videoContainer.msRequestFullscreen();
+              }
+          } else {
+              // Exit fullscreen
+              if (document.exitFullscreen) {
+                  document.exitFullscreen();
+              } else if (document.webkitExitFullscreen) { /* Safari */
+                  document.webkitExitFullscreen();
+              } else if (document.msExitFullscreen) { /* IE11 */
+                  document.msExitFullscreen();
+              }
+          }
+      });
+      
+      // Listen for fullscreen change to update button icon if needed
+      document.addEventListener('fullscreenchange', function() {
+          updateFullscreenButton();
+      });
+      
+      document.addEventListener('webkitfullscreenchange', function() {
+          updateFullscreenButton();
+      });
+      
+      document.addEventListener('mozfullscreenchange', function() {
+          updateFullscreenButton();
+      });
+      
+      document.addEventListener('MSFullscreenChange', function() {
+          updateFullscreenButton();
+      });
+      
+      function updateFullscreenButton() {
+          const isFullscreen = document.fullscreenElement || 
+                              document.webkitFullscreenElement || 
+                              document.mozFullScreenElement ||
+                              document.msFullscreenElement;
+          
+          if (isFullscreen) {
+              // Show compress icon (exit fullscreen)
+              document.getElementById('expandIcon').style.display = 'none';
+              document.getElementById('compressIcon').style.display = 'block';
+          } else {
+              // Show expand icon (enter fullscreen)
+              document.getElementById('expandIcon').style.display = 'block';
+              document.getElementById('compressIcon').style.display = 'none';
+          }
+      }
+      
+      // Utility function to format time as hh:mm:ss
+      function formatTime(seconds) {
+          if (isNaN(seconds) || seconds === Infinity) return '00:00:00';
+          
+          const hrs = Math.floor(seconds / 3600);
+          const mins = Math.floor((seconds % 3600) / 60);
+          const secs = Math.floor(seconds % 60);
+          
+          const formattedHrs = hrs.toString().padStart(2, '0');
+          const formattedMins = mins.toString().padStart(2, '0');
+          const formattedSecs = secs.toString().padStart(2, '0');
+          
+          if (hrs > 0) {
+              return `${formattedHrs}:${formattedMins}:${formattedSecs}`;
+          } else {
+              return `${formattedMins}:${formattedSecs}`;
+          }
+      }
+      
+      let hideControlsTimer;
+      let mouseInactivityTimer;
+      let lastMouseX = 0;
+      let lastMouseY = 0;
+      const mouseMoveThreshold = 20; // px of movement before resetting timer
+
+      function showControls() {
+          document.getElementById('video-title').classList.add('visible');
+          document.getElementById('video-controls').classList.add('visible');
+
+          // Clear any existing timer
+          if (hideControlsTimer) {
+              clearTimeout(hideControlsTimer);
+          }
+          if (mouseInactivityTimer) {
+              clearTimeout(mouseInactivityTimer);
+          }
+
+          // Set timer to hide controls after 3 seconds of inactivity
+          mouseInactivityTimer = setTimeout(hideControls, 3000);
+      }
+
+      function hideControls() {
+          // Don't hide if video is paused
+          if (!videoEl.paused) {
+              document.getElementById('video-title').classList.remove('visible');
+              document.getElementById('video-controls').classList.remove('visible');
+          }
+      }
+
+      // Add click event to video container
+      videoContainer.addEventListener('click', function(e) {
+          // Don't trigger if clicking on any control button or start screen
+          if (e.target.closest('#backBtn') || e.target.closest('#playPauseBtn') || e.target.closest('#muteBtn') || e.target.closest('#fullscreenBtn') || e.target.closest('#start-screen') || e.target.closest('.control-btn')) {
+              return;
+          }
+          if (videoEl.paused) {
+              // If video is paused, play it when clicked
+              videoEl.play();
+          } else {
+              // If video is playing, toggle controls visibility
+              if (document.getElementById('video-controls').classList.contains('visible')) {
+                  hideControls();
+              } else {
+                  showControls();
+              }
+          }
+      });
+
+      // Show controls on mouse move, reset inactivity timer only if movement exceeds threshold
+      videoContainer.addEventListener('mousemove', function(e) {
+          const deltaX = Math.abs(e.clientX - lastMouseX);
+          const deltaY = Math.abs(e.clientY - lastMouseY);
+
+          // Only reset timer if mouse moved more than threshold
+          if (deltaX > mouseMoveThreshold || deltaY > mouseMoveThreshold) {
+              lastMouseX = e.clientX;
+              lastMouseY = e.clientY;
+
+              if (hideControlsTimer) {
+                  clearTimeout(hideControlsTimer);
+              }
+              if (mouseInactivityTimer) {
+                  clearTimeout(mouseInactivityTimer);
+              }
+              document.getElementById('video-title').classList.add('visible');
+              document.getElementById('video-controls').classList.add('visible');
+              mouseInactivityTimer = setTimeout(hideControls, 3000);
+          }
+      });
+      
+      
+      // Ensure audio works by unmuting on any user interaction with the video
+      videoEl.addEventListener('touchstart', function() {
+          videoEl.muted = false;
+          videoEl.volume = 1.0;
+          document.getElementById('volumeMuted').style.display = 'none';
+          document.getElementById('volumeHigh').style.display = 'block';
+          
+          // Try to play if paused
+          if (videoEl.paused) {
+              videoEl.play().catch(e => console.log("Play attempt after touch failed:", e));
+          }
+      });
+
+      videoEl.addEventListener('click', function(e) {
+          // Don't trigger if clicking on any control button
+          if (e.target.closest('#backBtn') || e.target.closest('#playPauseBtn') || e.target.closest('#muteBtn') || e.target.closest('#fullscreenBtn') || e.target.closest('.control-btn')) {
+              return;
+          }
+          videoEl.muted = false;
+          videoEl.volume = 1.0;
+
+          // Try to play if paused
+          if (videoEl.paused) {
+              videoEl.play().catch(e => console.log("Play attempt after click failed:", e));
+          }
+      });
+
+      function showControls() {
+          document.getElementById('video-title').classList.add('visible');
+          document.getElementById('video-controls').classList.add('visible');
+
+          // Clear any existing timer
+          if (hideControlsTimer) {
+              clearTimeout(hideControlsTimer);
+          }
+
+          // Set timer to hide controls after 3 seconds
+          hideControlsTimer = setTimeout(hideControls, 3000);
+      }
+
+      function hideControls() {
+          document.getElementById('video-title').classList.remove('visible');
+          document.getElementById('video-controls').classList.remove('visible');
+      }
+      
+      // Add click event to video container
+      videoContainer.addEventListener('click', function(e) {
+          // Don't trigger if clicking on the back button or start screen
+          if (e.target.id !== 'backBtn' && !e.target.closest('#start-screen')) {
+              showControls();
+
+              // Ensure video is not muted on user interaction (for autoplay policy compliance)
+              videoEl.muted = false;
+              videoEl.volume = 1.0;
+              
+              if (videoEl.paused) {
+                  videoEl.play().catch(e => console.error("Play attempt failed:", e));
+              }
+          }
+      });
+      
+      // Also show controls when mouse moves over the video container
+      videoContainer.addEventListener('mousemove', showControls);
+      
+      
+    </script>
+  </body>
+</html>
