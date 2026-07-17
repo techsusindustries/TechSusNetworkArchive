@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proxy Playground - Anysite</title>
+    <link rel="icon" type="image/x-icon" href="https://assets.techsusindustries.com/favicon.ico">
+    
+    <!-- Preload critical fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/main.css">
+    
+    <meta name="description" content="Embed any website through Proxy Playground's universal embedder">
+    <meta name="theme-color" content="#0066FF">
+</head>
+<body>
+    <!-- Site Input Form -->
+    <div data-site-input>
+        <div class="container">
+            <div class="site-input-form">
+                <h2 class="site-input-title">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 8px;">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    </svg>
+                    Embed Any Website
+                </h2>
+                
+                <div class="form-group">
+                    <label for="site-url" class="form-label">Website URL</label>
+                    <input 
+                        type="url" 
+                        id="site-url" 
+                        class="form-input" 
+                        placeholder="https://example.com"
+                        data-site-url
+                        required
+                    >
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary" data-embed-submit>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9,10 4,15 9,20"></polyline>
+                            <path d="M20 4v7a4 4 0 0 1-4 4H4"></path>
+                        </svg>
+                        Embed Site
+                    </button>
+                </div>
+                
+                <div class="message message-warning" style="display: block;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink: 0;">
+                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                        <line x1="12" y1="9" x2="12" y2="13"></line>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                    <div>
+                        <strong>Important Notes:</strong>
+                        <ul style="margin: var(--space-2) 0 0 var(--space-4); line-height: 1.5;">
+                            <li>Always include <code>https://</code> or <code>http://</code> in the URL</li>
+                            <li>Some sites may display "refused to connect" - this is a security restriction from the target site</li>
+                            <li>If you see permission errors, try connecting to a different network</li>
+                            <li>Not all websites allow embedding due to security policies</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="message message-error" data-embed-message style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Embed Container -->
+    <div class="hidden-content embed-container" data-embed-container>
+        <!-- Content will be dynamically populated by JavaScript -->
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/embed.js"></script>
+</body>
+</html>
