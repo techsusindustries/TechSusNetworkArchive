@@ -1,0 +1,14 @@
+# Function to start the server
+start_servers() {
+    echo "Starting servers..."
+    squidsite
+    assets
+    tsbot
+    mtvarch
+    techsus
+}
+
+# Call the function when the terminal session starts
+start_servers
+sleep 2
+tmux ls

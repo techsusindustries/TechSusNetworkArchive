@@ -1,0 +1,6 @@
+SITE1_DIR="$HOME/projects/techsus/mtvarch"
+
+if ! tmux has-session -t mtvarch 2>/dev/null; then
+    mkdir -p "$SITE1_DIR"
+    tmux new-session -d -s mtvarch "cd $SITE1_DIR && node server.js"
+fi

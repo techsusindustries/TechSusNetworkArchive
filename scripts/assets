@@ -1,0 +1,6 @@
+SITE1_DIR="$HOME/projects/techsus/assets"
+
+if ! tmux has-session -t assets 2>/dev/null; then
+    mkdir -p "$SITE1_DIR"
+    tmux new-session -d -s assets "cd $SITE1_DIR && python3 server.py"
+fi

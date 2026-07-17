@@ -1,0 +1,6 @@
+SITE1_DIR="$HOME/projects/techsus/squid"
+
+if ! tmux has-session -t squidsite 2>/dev/null; then
+    mkdir -p "$SITE1_DIR"
+    tmux new-session -d -s squidsite "cd $SITE1_DIR && npm run dev"
+fi

@@ -1,0 +1,79 @@
+#!/bin/bash
+
+# ============================================
+# Termux Services and Environment Startup Script
+# ============================================
+
+# --- Start backend environment (PostgreSQL and Node.js app) ---
+DB_SESSION_NAME="maindb"
+APP_SESSION_NAME="mainsite"
+PROJECT_DIR="$HOME/projects"
+MAIN_DIR="$PROJECT_DIR/techsus/main"
+
+# Start PostgreSQL in its own tmux session
+if command -v tmux &> /dev/null; then
+    if ! tmux has-session -t "$DB_SESSION_NAME" 2>/dev/null; then
+        tmux new-session -d -s "$DB_SESSION_NAME" "pg_ctl -D $PREFIX/var/lib/postgresql start; exec bash"
+    fi
+fi
+
+# Start Node.js App in its own tmux session
+if command -v tmux &> /dev/null; then
+    if ! tmux has-session -t "$APP_SESSION_NAME" 2>/dev/null; then
+        tmux new-session -d -s "$APP_SESSION_NAME" "cd $MAIN_DIR && npm run dev; exec bash"
+    fi
+fi
+
+# --- Start Cloudflare Tunnel in tmux ---
+TMUX_SESSION_NAME="cloudflared-tunnel"
+CLOUDFLARED_TOKEN="CTokenHere"
+
+_start_cloudflared_tunnel_tmux() {
+    if ! command -v tmux &> /dev/null; then
+        return 1
+    fi
+    if ! command -v cloudflared &> /dev/null; then
+        return 1
+    fi
+    if ! tmux has-session -t "$TMUX_SESSION_NAME" 2>/dev/null; then
+        tmux new-session -d -s "$TMUX_SESSION_NAME" "cloudflared tunnel run --token '$CLOUDFLARED_TOKEN'"
+    fi
+}
+
+sleep 5
+_start_cloudflared_tunnel_tmux
+
+# --- Start static site servers ---
+SITE1_DIR="$PROJECT_DIR/techsus/status"
+SITE1_PORT="6868"
+SITE2_DIR="$PROJECT_DIR/techsus/proxy"
+SITE2_PORT="6969"
+SITE3_DIR="$PROJECT_DIR/techsus/proxyvc"
+SITE3_PORT="7697"
+SITE4_DIR="$PROJECT_DIR/techsus/proxy/services/selenite"
+SITE4_PORT="8645"
+
+if ! tmux has-session -t status 2>/dev/null; then
+    mkdir -p "$SITE1_DIR"
+    if [ ! -f "$SITE1_DIR/index.html" ]; then
+        echo "<!DOCTYPE html><html><head><title>TechSusStatus</title></head><body><h1>Welcome to TechSusStatus on Port $SITE1_PORT!</h1><p>This is the first static site.</p></body></html>" > "$SITE1_DIR/index.html"
+    fi
+    tmux new-session -d -s status "cd $SITE1_DIR && python3 -m http.server $SITE1_PORT"
+fi
+
+if ! tmux has-session -t proxymain 2>/dev/null; then
+    mkdir -p "$SITE2_DIR"
+    if [ ! -f "$SITE2_DIR/index.html" ]; then
+        echo "<!DOCTYPE html><html><head><title>ProxyPlayground</title></head><body><h1>Welcome to ProxyPlayground on Port $SITE2_PORT!</h1><p>This is the second static site.</p></body></html>" > "$SITE2_DIR/index.html"
+    fi
+    tmux new-session -d -s proxymain "cd $SITE2_DIR && python3 server.py"
+fi
+
+if ! tmux has-session -t proxyvc 2>/dev/null; then
+    mkdir -p "$SITE3_DIR"
+    tmux new-session -d -s proxyvc "cd $SITE3_DIR && python3 main.py"
+fi
+
+if ! tmux has-session -t selenite 2>/dev/null; then
+    tmux new-session -d -s selenite "cd $SITE4_DIR && python3 -m http.server $SITE4_PORT"
+fi
