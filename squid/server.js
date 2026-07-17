@@ -14,7 +14,7 @@ const pool = new Pool({
     user: 'techsusadmin',
     host: 'localhost',
     database: 'squidgamedb',
-    password: 'ChangeThisPassword',
+    password: 'ChangePassword',
     port: 5432,
 });
 
