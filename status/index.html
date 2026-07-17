@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechSus Service Status</title>
+    <link rel="icon" type="image/x-icon" href="https://assets.techsusindustries.com/favicon.ico">
+    <meta name="description" content="TechSus Service Status - See whether your TechSus services are online">
+    <meta name="theme-color" content="#0066FF">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+
+        .service-status {
+            margin-bottom: 20px;
+        }
+
+        .service-status h2 {
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            color: #34495e;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            margin-bottom: 10px;
+        }
+
+        .status-light {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .status-light.up {
+            background-color: #2ecc71;
+        }
+
+        .status-light.down {
+            background-color: #e74c3c;
+        }
+
+        .status-light.loading {
+            background-color: #f1c40f;
+        }
+
+        .status-text {
+            font-weight: bold;
+            flex-grow: 1;
+        }
+
+        .status-details {
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+
+        .manual-services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .manual-service-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #ecf0f1;
+        }
+
+        @keyframes pulse-up {
+            0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(46, 204, 113, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+        }
+
+        @keyframes pulse-down {
+            0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(231, 76, 60, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+        }
+
+        @keyframes pulse-loading {
+            0% { box-shadow: 0 0 0 0 rgba(241, 196, 15, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(241, 196, 15, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(241, 196, 15, 0); }
+        }
+
+        .status-light.up {
+            background-color: #2ecc71;
+            animation: pulse-up 2s infinite;
+        }
+
+        .status-light.down {
+            background-color: #e74c3c;
+            animation: pulse-down 2s infinite;
+        }
+
+        .status-light.loading {
+            background-color: #f1c40f;
+            animation: pulse-loading 2s infinite;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Service Status</h1>
+
+        <div class="service-status">
+            <h2>Core Services</h2>
+            <div id="techsus-site-status" class="status-item">
+                <div class="status-light loading"></div>
+                <div class="status-text">TechSus Network Site is <span style="color: #f1c40f;">Checking...</span></div>
+            </div>
+            <div id="proxyplayground-status" class="status-item">
+                <div class="status-light loading"></div>
+                <div class="status-text">Proxy Playground is <span style="color: #f1c40f;">Checking...</span></div>
+            </div>
+            <div id="goongang-status" class="status-item">
+                <div class="status-light loading"></div>
+                <div class="status-text">Goon Gang is <span style="color: #f1c40f;">Checking...</span></div>
+            </div>
+            <div id="asset-status" class="status-item">
+                <div class="status-light loading"></div>
+                <div class="status-text">TS Assets Server is <span style="color: #f1c40f;">Checking...</span></div>
+            </div>
+            <div id="techsus-auth-status" class="status-item">
+                <div class="status-light loading"></div>
+                <div class="status-text">TechSus Auth System is <span style="color: #f1c40f;">Checking...</span></div>
+            </div>
+        </div>
+
+        <div class="service-status">
+            <h2>Proxy Playground Services</h2>
+            <div class="manual-services-grid" id="proxy-services">
+                <div class="manual-service-item">
+                    <div class="status-light up"></div>
+                    <div class="status-text">Main Service(KSM)</div>
+                </div>
+                <div class="manual-service-item">
+                    <div class="status-light up"></div>
+                    <div class="status-text">TechSus AI</div>
+                </div>
+                <div class="manual-service-item">
+                    <div class="status-light up"></div>
+                    <div class="status-text">TechSus Image AI [BETA]</div>
+                </div>
+                <div class="manual-service-item">
+                    <div class="status-light up"></div>
+                    <div class="status-text">Selenite</div>
+                </div>
+                <div class="manual-service-item">
+                    <div class="status-light up"></div>
+                    <div class="status-text">GN-Math</div>
+                </div>
+                <div class="manual-service-item">
+                    <div class="status-light up"></div>
+                    <div class="status-text">Frogies Arcade v4</div>
+                </div>
+                <div class="manual-service-item">
+                    <div class="status-light up"></div>
+                    <div class="status-text">Eaglercraft</div>
+                </div>
+                <div class="manual-service-item">
+                    <div class="status-light up"></div>
+                    <div class="status-text">YTMP4</div>
+                </div>
+                <div class="manual-service-item">
+                    <div class="status-light up"></div>
+                    <div class="status-text">TechSus Web Embedder</div>
+                </div>
+                <div class="manual-service-item">
+                    <div class="status-light up"></div>
+                    <div class="status-text">Invidious</div>
+                </div>
+                <div id="mtvarchive-status" class="status-item">
+                    <div class="status-light loading"></div>
+                    <div class="status-text">Movie/TV Show Archive is <span style="color: #f1c40f;">Checking...</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="service-status">
+            <h2>Goon Gang Services</h2>
+            <div class="manual-services-grid" id="goongang-services">
+                <div class="manual-service-item">
+                    <div class="status-light up"></div>
+                    <div class="status-text">Main Script Hub</div>
+                </div>
+                <div class="manual-service-item">
+                    <div class="status-light up"></div>
+                    <div class="status-text">Beta Script Hub</div>
+                </div>
+                <div class="manual-service-item">
+                    <div class="status-light up"></div>
+                    <div class="status-text">Key System</div>
+                </div>
+                <div class="manual-service-item">
+                    <div class="status-light up"></div>
+                    <div class="status-text">Old Script Hub</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const checkStatus = async (url, elementId, serviceName) => {
+            const statusLight = document.querySelector(`#${elementId} .status-light`);
+            const statusTextContainer = document.querySelector(`#${elementId} .status-text`);
+
+            statusLight.classList.remove('up', 'down');
+            statusLight.classList.add('loading');
+            statusTextContainer.innerHTML = `${serviceName} is <span style="color: #f1c40f;">Checking...</span>`;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'GET'
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.status === "ok") {
+                        statusLight.classList.remove('loading');
+                        statusLight.classList.add('up');
+                        statusTextContainer.innerHTML = `${serviceName} is <span style="color: #2ecc71;">Online</span>`;
+                    } else {
+                        throw new Error('Health check returned a non-ok status.');
+                    }
+                } else {
+                    throw new Error(`Server returned status code: ${response.status}`);
+                }
+            } catch (error) {
+                console.error(`Error checking ${url}:`, error);
+                statusLight.classList.remove('loading');
+                statusLight.classList.add('down');
+                statusTextContainer.innerHTML = `${serviceName} is <span style="color: #e74c3c;">Offline</span>`;
+            }
+        };
+
+        const checkServiceStatus = async (url, elementId, serviceName) => {
+            const statusLight = document.querySelector(`#${elementId} .status-light`);
+            const statusTextSpan = document.querySelector(`#${elementId} .status-text span`);
+
+            // Set initial state to 'Checking...'
+            statusLight.classList.remove('up', 'down');
+            statusLight.classList.add('loading');
+            statusTextSpan.style.color = '#f1c40f';
+            statusTextSpan.textContent = 'Checking...';
+
+            try {
+                // Add a unique timestamp to the URL to bypass caching
+                const cacheBuster = `?t=${new Date().getTime()}`;
+                const response = await fetch(`${url}${cacheBuster}`, {
+                    method: 'GET'
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.status === 'ok') {
+                        statusLight.classList.remove('loading', 'down');
+                        statusLight.classList.add('up');
+                        statusTextSpan.style.color = '#2ecc71';
+                        statusTextSpan.textContent = 'Online';
+                    } else {
+                        // The file exists, but the status is not 'ok'
+                        throw new Error('Status file reports service is down.');
+                    }
+                } else {
+                    // The fetch failed, either because the file doesn't exist or a Cloudflare error.
+                    throw new Error(`Server returned status code: ${response.status}`);
+                }
+            } catch (error) {
+                console.error(`Error checking ${serviceName}:`, error);
+                statusLight.classList.remove('loading');
+                statusLight.classList.add('down');
+                statusTextSpan.style.color = '#e74c3c';
+                statusTextSpan.textContent = 'Offline';
+            }
+        };
+
+        const monitorSites = () => {
+            // Checks the TechSus Industries Site's health endpoint
+            checkStatus('https://techsusindustries.com/health', 'techsus-site-status', 'TechSus Industries Site');
+
+            // Checks the specific db-health endpoint for the Auth System
+            checkStatus('https://techsusindustries.com/db-health', 'techsus-auth-status', 'TechSus Auth System');
+
+            // Checks the Proxy Playground core service status
+            checkServiceStatus('https://proxyplayground.com/status.json', 'proxyplayground-status', 'Proxy Playground');
+            
+            // Checks the Movie/TV Show Archive core service status
+            checkServiceStatus('https://mtvarchive.proxyplayground.com/status.json', 'mtvarchive-status', 'Movie/TV Show Archive');
+
+            // Checks the Goon Gang core service status
+            checkServiceStatus('https://goongang.techsusindustries.com/status.json', 'goongang-status', 'Goon Gang');
+
+            // Checks the Assets server status
+            checkServiceStatus('https://assets.techsusindustries.com/status.json', 'asset-status', 'TS Assets Server');
+        };
+
+        // Run the initial check
+        monitorSites();
+
+        // Check every 60 seconds (60000 milliseconds)
+        setInterval(monitorSites, 60000);
+    </script>
+
+</body>
+</html>
+
